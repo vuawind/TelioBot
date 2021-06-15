@@ -5,8 +5,6 @@ from datetime import datetime
 from slack_bolt import App, Ack
 from slack import WebClient
 from travel import travel_bot
-#export SLACK_EVENTS_TOKEN='cfc7d7ebfd3d2843066e84e9ab8ff50f'
-#export SLACK_TOKEN='xoxb-2135193288769-2120092576725-284jGR0LqQbQ6lVItvNrBbE1'
 
 
 app = App(

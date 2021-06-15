@@ -5,6 +5,9 @@ from datetime import datetime
 from slack_bolt import App, Ack
 from slack import WebClient
 from travel import travel_bot
+#export SLACK_EVENTS_TOKEN='cfc7d7ebfd3d2843066e84e9ab8ff50f'
+#export SLACK_TOKEN='xoxb-2135193288769-2120092576725-284jGR0LqQbQ6lVItvNrBbE1'
+
 
 app = App(
     signing_secret = os.environ.get("SLACK_EVENTS_TOKEN"),
@@ -73,7 +76,7 @@ def handle_submission(ack, body, client, view, logger, message, user):
 
     # Message the user
     try:
-        client.chat_postMessage(channel='C0251M6KFM1', blocks=[
+        client.chat_postMessage(channel='C0252EMRTS7', blocks=[
 		{
 			"type": "section",
 			"text": {
@@ -153,13 +156,13 @@ def action_button_click1(body, ack, say, client, view):
     # Acknowledge the action
     user = body["user"]["id"]
     ts=body['message']['ts']
-    result = client.conversations_history(channel = 'C0251M6KFM1', inclusive=True,latest=ts,limit=1)
+    result = client.conversations_history(channel = 'C0252EMRTS7', inclusive=True,latest=ts,limit=1)
     conversation_history = f"{result['messages'][0]['blocks'][0]['text']['text']}\n{result['messages'][0]['blocks'][1]['text']['text']}"
     msg = conversation_history
     ack()
     client.chat_postMessage(channel = body['message']['user'], text = f"<@{body['user']['id']}> approved")
     client.chat_postMessage(channel = user, text = f"<@{body['user']['id']}> approved")
-    client.chat_postMessage(channel = 'C024MKPDC76', blocks=[
+    client.chat_postMessage(channel = 'C024Z67LNDB', blocks=[
 		{
 			"type": "section",
 			"text": {
@@ -194,11 +197,11 @@ def action_button_click1(body, ack, say, client, view):
 @app.action("button_done")
 def info_click(body, say, client, ack, action):
     ts=body['message']['ts']
-    result = client.conversations_history(channel = "C0245ED9C0P", inclusive=True,latest=ts,limit=1)
+    result = client.conversations_history(channel = "C0252EMRTS7", inclusive=True,latest=ts,limit=1)
     conversation_history = f"{result['messages'][0]['blocks'][0]['text']['text']}\n{result['messages'][0]['blocks'][1]['text']['text']}"
     msg = conversation_history
     ack()
-    client.chat_update(ts=ts, channel = 'C024MKPDC76', blocks=[
+    client.chat_update(ts=ts, channel = 'C024Z67LNDB', blocks=[
 		{
 			"type": "section",
 			"text": {

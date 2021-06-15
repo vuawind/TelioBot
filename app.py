@@ -195,7 +195,7 @@ def action_button_click1(body, ack, say, client, view):
 @app.action("button_done")
 def info_click(body, say, client, ack, action):
     ts=body['message']['ts']
-    result = client.conversations_history(channel = "C0252EMRTS7", inclusive=True,latest=ts,limit=1)
+    result = client.conversations_history(channel = "C024Z67LNDB", inclusive=True,latest=ts,limit=1)
     conversation_history = f"{result['messages'][0]['blocks'][0]['text']['text']}\n{result['messages'][0]['blocks'][1]['text']['text']}"
     msg = conversation_history
     ack()

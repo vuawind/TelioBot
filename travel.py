@@ -548,6 +548,19 @@ class travel_bot:
             },
             {
                 "type": "input",
+                "block_id": "block_l_input",
+                "element": {
+                    "type": "plain_text_input",
+                    "action_id": "flight_ticket"
+                },
+                "label": {
+                    "type": "plain_text",
+                    "text": "Flight ticket/Vé máy bay",
+                    "emoji": True
+                }
+            },
+            {
+                "type": "input",
                 "block_id": "block_j_input",
                 "element": {
                     "type": "plain_text_input",

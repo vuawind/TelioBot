@@ -78,13 +78,6 @@ def handle_submission(ack, body, client, view, logger, message, user):
 		{
 			"type": "section",
 			"text": {
-				"type": "plain_text",
-				"text": f"{body['user']['id']}"
-			}
-		},
-		{
-			"type": "section",
-			"text": {
 				"type": "mrkdwn",
 				"text": f"You have a new request from *<@{body['user']['username']}>* with email *{email}*:\n*Display name: * {display_name}\n*Title: * {title}\n*Phone: * {phone}"
 			}

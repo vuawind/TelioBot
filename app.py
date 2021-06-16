@@ -256,7 +256,8 @@ def handle_info_travel(ack, body, client, view, logger, message, user,say):
     msg = ""
     try:
         # Save to DB
-        msg = f"Hello *{profile}*, this is your travel information:\n*Vehicle/Phương tiện:* {line2}\n*Vehicle's number/License plate(Số xe):*\n{line3}\n*Driver's name/Tên người lái:* {line4}\n*Diver's phone number/sđt người lái: * {line5}\n*Hotel/Khách sạn: * {line6}\n *Hotel's location/Địa điểm: * {line7}\n*Hotel's booking number/số booking khách sạn:*\n{line8}\n*Flight ticket/Vé máy bay:*\n {line11}\n*Boarding pass (if travel by plane)/Thẻ máy bay: * \n{line9}\n*Note/Ghi chú:*\n{line10}"    except Exception as e:
+        msg = f"Hello *{profile}*, this is your travel information:\n*Vehicle/Phương tiện:* {line2}\n*Vehicle's number/License plate(Số xe):*\n{line3}\n*Driver's name/Tên người lái:* {line4}\n*Diver's phone number/sđt người lái: * {line5}\n*Hotel/Khách sạn: * {line6}\n *Hotel's location/Địa điểm: * {line7}\n*Hotel's booking number/số booking khách sạn:*\n{line8}\n*Flight ticket/Vé máy bay:*\n {line11}\n*Boarding pass (if travel by plane)/Thẻ máy bay: * \n{line9}\n*Note/Ghi chú:*\n{line10}"
+    except Exception as e:
         # Handle error
         msg = "There was an error with your submission"
 

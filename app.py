@@ -78,6 +78,13 @@ def handle_submission(ack, body, client, view, logger, message, user):
 		{
 			"type": "section",
 			"text": {
+				"type": "plain_text",
+				"text": f"{body['user']['id']}"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
 				"type": "mrkdwn",
 				"text": f"You have a new request from *<@{body['user']['username']}>* with email *{email}*:\n*Display name: * {display_name}\n*Title: * {title}\n*Phone: * {phone}"
 			}
@@ -96,6 +103,13 @@ def handle_submission(ack, body, client, view, logger, message, user):
 		}
 	])
         client.chat_postMessage(channel=f'{line11}', blocks=[
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": f"{body['user']['id']}"
+			}
+		},
 		{
 			"type": "section",
 			"text": {
@@ -158,7 +172,7 @@ def action_button_click1(body, ack, say, client, view):
     conversation_history = f"{result['messages'][0]['blocks'][0]['text']['text']}\n{result['messages'][0]['blocks'][1]['text']['text']}"
     msg = conversation_history
     ack()
-    client.chat_postMessage(channel = body['message']['user'], text = f"<@{body['user']['id']}> approved")
+    client.chat_postMessage(channel = body['message']['blocks'][0]['text']['text'], text = f"<@{body['user']['id']}> approved your travel plan")
     client.chat_postMessage(channel = user, text = f"<@{body['user']['id']}> approved")
     client.chat_postMessage(channel = 'C024Z67LNDB', blocks=[
 		{
@@ -288,9 +302,9 @@ def handle_info_travel(ack, body, client, view, logger, message, user,say):
 @app.action("button2")
 def action_button_click2(body, ack, say, client):
     # Acknowledge the action
-    user = body["user"]["id"]
     ack()
-    client.chat_postMessage(channel = user, text = f"<@{body['user']['id']}> denied")
+    client.chat_postMessage(channel = body['message']['blocks'][0]['text']['text'], text = f"<@{body['user']['id']}> denied your travel plan")
+
 
 # Start your app
 if __name__ == "__main__":

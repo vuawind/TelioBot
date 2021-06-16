@@ -31,7 +31,7 @@ class travel_bot:
                 },
                 "label": {
                     "type": "plain_text",
-                    "text": "User",
+                    "text": "Approver/Người phê duyệt",
                     "emoji": True
                 }
             },
@@ -40,7 +40,7 @@ class travel_bot:
                 "block_id": "block_a",
                 "label": {
                     "type": "plain_text",
-                    "text": "Pick a date for departure:"
+                    "text": "Pick a date for departure/Chọn ngày đi:"
                 },
                 "element": {
                     "type": "datepicker",
@@ -57,7 +57,7 @@ class travel_bot:
                 "block_id": "block_b",
                 "label": {
                     "type": "plain_text",
-                    "text": "Pick a date for return:"
+                    "text": "Pick a date for return/Chọn ngày về:"
                 },
                 "element": {
                     "type": "datepicker",
@@ -74,7 +74,7 @@ class travel_bot:
                 "block_id": "block_from",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "*From:*"
+                    "text": "*From/Từ:*"
                 },
                 "accessory": {
                     "type": "static_select",
@@ -127,7 +127,7 @@ class travel_bot:
                         {
                             "text": {
                                 "type": "plain_text",
-                                "text": "Other (Please state your destination in the reason for travel box)",
+                                "text": "Other/Khác(include in reason/thêm địa điểm ở bảng lý do)",
                                 "emoji": True,
                             },
                             "value": "value-3"
@@ -141,7 +141,7 @@ class travel_bot:
                 "block_id": "block_return",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "*To:*"
+                    "text": "*To/Đến:*"
                 },
                 "accessory": {
                     "type": "static_select",
@@ -194,7 +194,7 @@ class travel_bot:
                         {
                             "text": {
                                 "type": "plain_text",
-                                "text": "Other (Please state your destination in the reason for travel box)",
+                                "text": "Other/Khác(include in reason/thêm địa điểm ở bảng lý do)",
                                 "emoji": True,
                             },
                             "value": "value-3"
@@ -208,7 +208,7 @@ class travel_bot:
                 "block_id": "block_vehicle",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "*Vehicle:*"
+                    "text": "*Vehicle/Phương tiện:*"
                 },
                 "accessory": {
                     "type": "static_select",
@@ -221,7 +221,7 @@ class travel_bot:
                         {
                             "text": {
                                 "type": "plain_text",
-                                "text": "Plane",
+                                "text": "Airlane/Máy bay",
                                 "emoji": True,
                             },
                             "value": "value-0"
@@ -229,7 +229,7 @@ class travel_bot:
                         {
                             "text": {
                                 "type": "plain_text",
-                                "text": "Car",
+                                "text": "Car/Ô tô",
                                 "emoji": True,
                             },
                             "value": "value-1"
@@ -237,7 +237,15 @@ class travel_bot:
                         {
                             "text": {
                                 "type": "plain_text",
-                                "text": "Train",
+                                "text": "Bus/Xe buýt",
+                                "emoji": True,
+                            },
+                            "value": "value-1"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Train/Tàu hỏa",
                                 "emoji": True,
                             },
                             "value": "value-2"
@@ -251,7 +259,7 @@ class travel_bot:
                 "block_id": "block_class",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "*Class*"
+                    "text": "*Class/Chức vụ*"
                 },
                 "accessory": {
                     "type": "static_select",
@@ -264,7 +272,7 @@ class travel_bot:
                         {
                             "text": {
                                 "type": "plain_text",
-                                "text": "A - Director",
+                                "text": "A - Director/Giám đốc điều hành",
                                 "emoji": True,
                             },
                             "value": "value-0"
@@ -272,7 +280,7 @@ class travel_bot:
                         {
                             "text": {
                                 "type": "plain_text",
-                                "text": "B - Manager",
+                                "text": "B - Manager/Quản lý bộ phận",
                                 "emoji": True,
                             },
                             "value": "value-1"
@@ -280,7 +288,7 @@ class travel_bot:
                         {
                             "text": {
                                 "type": "plain_text",
-                                "text": "C - Employee",
+                                "text": "C - Employee/Nhân viên",
                                 "emoji": True,
                             },
                             "value": "value-2"
@@ -296,13 +304,13 @@ class travel_bot:
                     "type": "plain_text_input",
                     "placeholder": {
                         "type": "plain_text",
-                        "text": "Your ID"
+                        "text": "Your ID/ID của bạn"
                     },
                     "action_id": "input_id"
                 },
                 "label": {
                     "type": "plain_text",
-                    "text": "ID or Passport number",
+                    "text": "ID or Passport number/CCCD hoặc hộ chiếu",
                     "emoji": True,
                 }
             },
@@ -314,13 +322,13 @@ class travel_bot:
                     "multiline": True,
                     "placeholder": {
                         "type": "plain_text",
-                        "text": "Please include your preferred time of travel"
+                        "text": "Please include your preferred time of travel/Xin hãy thêm giờ đi và về"
                     },
                     "action_id": "reason_input"
                 },
                 "label": {
                     "type": "plain_text",
-                    "text": "Reason for travel"
+                    "text": "Reason for travel/Lý do đi công tác"
                 }
             },
             {
@@ -328,7 +336,7 @@ class travel_bot:
                 "block_id": "block_perdiem",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "*Per diem*"
+                    "text": "*Per diem/Phụ cấp*"
                 },
                 "accessory": {
                     "type": "static_select",
@@ -341,7 +349,7 @@ class travel_bot:
                         {
                             "text": {
                                 "type": "plain_text",
-                                "text": "Yes",
+                                "text": "Yes/Có",
                                 "emoji": True,
                             },
                             "value": "value-0"
@@ -349,7 +357,7 @@ class travel_bot:
                         {
                             "text": {
                                 "type": "plain_text",
-                                "text": "No",
+                                "text": "No/Không",
                                 "emoji": True,
                             },
                             "value": "value-1"
@@ -367,13 +375,13 @@ class travel_bot:
                     "min_length": 0,
                     "placeholder": {
                         "type": "plain_text",
-                        "text": "Input bank information including name, bank location, and account number"
+                        "text": "Include bank name, location, and account number/Thêm thông tin ngân hàng(tên, chi nhánh, STK)"
                     },
                     "action_id": "bank_input"
                 },
                 "label": {
                     "type": "plain_text",
-                    "text": "Bank information"
+                    "text": "Bank information/Thông tin ngân hàng"
                 }
             }
         ],
@@ -405,7 +413,7 @@ class travel_bot:
                 },
                 "label": {
                     "type": "plain_text",
-                    "text": "User",
+                    "text": "Requester/Người yêu cầu công tác",
                     "emoji": True
                 }
             },
@@ -414,7 +422,7 @@ class travel_bot:
                 "block_id": "block_b_input",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "*Vehicle*"
+                    "text": "*Vehicle/Phương tiện*"
                 },
                 "accessory": {
                     "type": "static_select",
@@ -427,7 +435,7 @@ class travel_bot:
                         {
                             "text": {
                                 "type": "plain_text",
-                                "text": "Car",
+                                "text": "Car/Ô tô",
                                 "emoji": True
                             },
                             "value": "value-0"
@@ -435,7 +443,15 @@ class travel_bot:
                         {
                             "text": {
                                 "type": "plain_text",
-                                "text": "Train",
+                                "text": "Bus/Xe buýt",
+                                "emoji": True
+                            },
+                            "value": "value-3"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Train/Tàu hỏa",
                                 "emoji": True
                             },
                             "value": "value-1"
@@ -443,7 +459,7 @@ class travel_bot:
                         {
                             "text": {
                                 "type": "plain_text",
-                                "text": "Airplane",
+                                "text": "Airplane/Máy bay",
                                 "emoji": True
                             },
                             "value": "value-2"
@@ -461,7 +477,7 @@ class travel_bot:
                 },
                 "label": {
                     "type": "plain_text",
-                    "text": "Vehicle's number or License plate",
+                    "text": "Vehicle's number or License plate/Số xe hoặc biển xe",
                     "emoji": True
                 }
             },
@@ -474,7 +490,7 @@ class travel_bot:
                 },
                 "label": {
                     "type": "plain_text",
-                    "text": "Driver's name",
+                    "text": "Driver's name/Tên người lái",
                     "emoji": True
                 }
             },
@@ -487,7 +503,7 @@ class travel_bot:
                 },
                 "label": {
                     "type": "plain_text",
-                    "text": "Driver's number",
+                    "text": "Driver's number/Số điện thoại người lái",
                     "emoji": True
                 }
             },
@@ -500,7 +516,7 @@ class travel_bot:
                 },
                 "label": {
                     "type": "plain_text",
-                    "text": "Hotel's name",
+                    "text": "Hotel's name/Tên khách sạn",
                     "emoji": True
                 }
             },
@@ -513,7 +529,7 @@ class travel_bot:
                 },
                 "label": {
                     "type": "plain_text",
-                    "text": "Hotel's location",
+                    "text": "Hotel's location/Địa chỉ khách sạn",
                     "emoji": True
                 }
             },
@@ -526,7 +542,7 @@ class travel_bot:
                 },
                 "label": {
                     "type": "plain_text",
-                    "text": "Hotel's booking number",
+                    "text": "Hotel's booking number/Số booking khách sạn",
                     "emoji": True
                 }
             },
@@ -539,7 +555,7 @@ class travel_bot:
                 },
                 "label": {
                     "type": "plain_text",
-                    "text": "Boarding pass",
+                    "text": "Boarding pass/Thẻ máy bay",
                     "emoji": True
                 }
             },
@@ -553,7 +569,7 @@ class travel_bot:
                 },
                 "label": {
                     "type": "plain_text",
-                    "text": "Note",
+                    "text": "Note/Ghi chú",
                     "emoji": True
                 }
             }

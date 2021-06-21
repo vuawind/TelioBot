@@ -23,7 +23,7 @@ class welcome:
                             "emoji": True
                         },
                         "value": "sophie",
-                        "url": "https://teliovn.slack.com/archives/D024MFB2B1D",
+                        "url": "https://teliovn.slack.com/app_redirect?channel=D024MFB2B1D",
                         "action_id": "sophie"
                     }
                 ]

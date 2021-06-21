@@ -353,6 +353,9 @@ def ask_for_introduction(event, say, client, body):
 @app.shortcut("sophie")
 def sophie(event, say, ack, client,shortcut, body):
     ack()
+    client.views_open(
+        trigger_id=shortcut["trigger_id"],
+        view=welcome.WELCOME_MODAL)
     client.chat_postMessage(channel=shortcut['user']['id'], text=f":hugging_face: Xin chào <@{body['user']['id']}>, Tôi là Sophie - HR Chatbot. Bạn có câu hỏi nào cho Sophie - Hãy bấm vào mục liên quan bên dưới nhé!")
     client.chat_postMessage(channel=shortcut['user']['id'], blocks=welcome.WELCOME_BLOCK)
 

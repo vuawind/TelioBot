@@ -5,6 +5,46 @@ from slack_bolt import App, Ack
 from slack import WebClient
 
 class welcome:
+    WELCOME_MODAL={
+        "title": {
+        "type": "plain_text",
+        "text": "Travel Request"
+        },
+        "callback_id": "view_travel",
+        "blocks": [
+            {
+                "type": "actions",
+                "elements": [
+                    {
+                        "type": "button",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Đưa tôi đến Sophie",
+                            "emoji": True
+                        },
+                        "value": "sophie",
+                        "url": "https://absolutediaper.slack.com/archives/D024AUKTUTS",
+                        "action_id": "sophie"
+                    }
+                ]
+            },
+            {
+                "type": "context",
+                "elements": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "*Hoặc check tin nhắn từ TelioBot*"
+                    }
+                ]
+            },
+            {
+                "type": "image",
+                "image_url": "https://i1.wp.com/thetempest.co/wp-content/uploads/2017/08/The-wise-words-of-Michael-Scott-Imgur-2.jpg?w=1024&ssl=1",
+                "alt_text": "inspiration"
+            }
+        ],
+        "type": "modal"
+    }
     WELCOME_BLOCK = [
             {
                 "type": "actions",

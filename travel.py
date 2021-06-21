@@ -5,7 +5,6 @@ from slack_bolt import App, Ack
 from slack import WebClient
 
 class travel_bot:
-
     TRAVEL_BLOCK={
         "title": {
             "type": "plain_text",
@@ -328,7 +327,7 @@ class travel_bot:
                 },
                 "label": {
                     "type": "plain_text",
-                    "text": "Reason for travel/Lý do đi công tác"
+                    "text": "Reason for travel/Lý do đi công tác(Thêm địa điểm nếu như chọn khác)"
                 }
             },
             {

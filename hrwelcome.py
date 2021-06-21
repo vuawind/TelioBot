@@ -8,7 +8,7 @@ class welcome:
     WELCOME_MODAL={
         "title": {
         "type": "plain_text",
-        "text": "Travel Request"
+        "text": "Sophie Bot"
         },
         "callback_id": "view_travel",
         "blocks": [

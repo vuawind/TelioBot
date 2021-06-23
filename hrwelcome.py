@@ -5,46 +5,6 @@ from slack_bolt import App, Ack
 from slack import WebClient
 
 class welcome:
-    WELCOME_MODAL={
-        "title": {
-        "type": "plain_text",
-        "text": "Sophie Bot"
-        },
-        "callback_id": "view_travel",
-        "blocks": [
-            {
-                "type": "actions",
-                "elements": [
-                    {
-                        "type": "button",
-                        "text": {
-                            "type": "plain_text",
-                            "text": "Đưa tôi đến Sophie",
-                            "emoji": True
-                        },
-                        "value": "sophie",
-                        "url": "https://teliovn.slack.com/app_redirect?channel=D024MFB2B1D",
-                        "action_id": "sophie"
-                    }
-                ]
-            },
-            {
-                "type": "context",
-                "elements": [
-                    {
-                        "type": "mrkdwn",
-                        "text": "*Hoặc check tin nhắn từ TelioBot*"
-                    }
-                ]
-            },
-            {
-                "type": "image",
-                "image_url": "https://i1.wp.com/thetempest.co/wp-content/uploads/2017/08/The-wise-words-of-Michael-Scott-Imgur-2.jpg?w=1024&ssl=1",
-                "alt_text": "inspiration"
-            }
-        ],
-        "type": "modal"
-    }
     WELCOME_BLOCK = [
             {
                 "type": "actions",
@@ -83,11 +43,21 @@ class welcome:
                         "type": "button",
                         "text": {
                             "type": "plain_text",
-                            "text": "IV. Bảo hiểm",
+                            "text": "IV. Bảo hiểm/Khám chữa bệnh",
                             "emoji": True
                         },
                         "value": "click4",
                         "action_id": "insurance_id"
+                    },
+                    {
+                        "type": "button",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "V. Thai sản",
+                            "emoji": True
+                        },
+                        "value": "click5",
+                        "action_id": "pregnant_id"
                     }
                 ]
             },
@@ -98,40 +68,50 @@ class welcome:
                         "type": "button",
                         "text": {
                             "type": "plain_text",
-                            "text": "V. Thuế",
+                            "text": "VI. Thuế",
                             "emoji": True
                         },
-                        "value": "click5",
+                        "value": "click6",
                         "action_id": "tax_id"
                     },
                     {
                         "type": "button",
                         "text": {
                             "type": "plain_text",
-                            "text": "VI. Chấm công - Tính lương",
+                            "text": "VII. Chấm công - Tính lương",
                             "emoji": True
                         },
-                        "value": "click6",
+                        "value": "click7",
                         "action_id": "salary_id"
                     },
                     {
                         "type": "button",
                         "text": {
                             "type": "plain_text",
-                            "text": "VII. Kỷ luật lao động",
+                            "text": "VIII. Ngày nghỉ",
                             "emoji": True
                         },
-                        "value": "click7",
+                        "value": "click8",
+                        "action_id": "off_id"
+                    },
+                    {
+                        "type": "button",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "IX. Kỷ luật lao động",
+                            "emoji": True
+                        },
+                        "value": "click9",
                         "action_id": "work_id"
                     },
                     {
                         "type": "button",
                         "text": {
                             "type": "plain_text",
-                            "text": "VIII. Câu hỏi khác",
+                            "text": "X. Câu hỏi khác",
                             "emoji": True
                         },
-                        "value": "click8",
+                        "value": "click10",
                         "action_id": "other_id"
                     }
                 ]
@@ -164,7 +144,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "1.Thủ tục onboard/tiếp nhận nhân viên mới như thế nào?",
+								"text": "1. Nhân viên mới cần làm những gì?",
 								"emoji": True
 							},
 							"value": "value-0"
@@ -172,7 +152,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "2.Nhân viên Telio mới cần làm những thủ tục gì?",
+								"text": "2. Email Telio và tài khoản 1office của tôi?",
 								"emoji": True
 							},
 							"value": "value-1"
@@ -180,7 +160,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "3.Thông tin về email và tài khoản 1 office?",
+								"text": "3. Tôi cần hỗ trợ về khóa học E-Learn Đào tạo hội nhập",
 								"emoji": True
 							},
 							"value": "value-2"
@@ -188,7 +168,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "4.Nếu có thắc mắc về chế độ chính sách thì liên hệ ai?",
+								"text": "4. Về thủ tục onboard nhân viên mới?",
 								"emoji": True
 							},
 							"value": "value-3"
@@ -196,7 +176,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "5.Bộ hồ sơ nhân sự bao gồm những gì?",
+								"text": "5. Bộ hồ sơ nhân sự gồm những gì?",
 								"emoji": True
 							},
 							"value": "value-4"
@@ -204,7 +184,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "6.Công ty thanh toán lương như thế nào?",
+								"text": "6. Công ty thanh toán lương như thế nào?",
 								"emoji": True
 							},
 							"value": "value-5"
@@ -212,7 +192,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "7.Làm thế nào để tìm Số điện thoại và Email của đồng nghiệp?",
+								"text": "7. Tôi phải thông báo STK Ngân hàng cho ai?",
 								"emoji": True
 							},
 							"value": "value-6"
@@ -220,10 +200,26 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "8.Cách sử dụng slack như thế nào?",
+								"text": "8. Tôi muốn tìm SĐT & Email của đồng nghiệp?",
 								"emoji": True
 							},
 							"value": "value-7"
+						},
+						{
+							"text": {
+								"type": "plain_text",
+								"text": "9. Cách sử dụng slack?",
+								"emoji": True
+							},
+							"value": "value-8"
+						},
+						{
+							"text": {
+								"type": "plain_text",
+								"text": "10. Khi nào tôi sẽ nhận được lương?",
+								"emoji": True
+							},
+							"value": "value-9"
 						}
 					],
 					"action_id": "onboard_select"
@@ -281,7 +277,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "2. Nếu nghỉ việc thì thời gian nhận khoản lương còn lại là khi nào?",
+								"text": "2. Khi nào tôi nhận được tháng lương cuối cùng?",
 								"emoji": True
 							},
 							"value": "value-1"
@@ -297,7 +293,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "4. Nghỉ việc có được thanh toán phép tồn khi nghỉ việc không?",
+								"text": "4. Tôi có được thanh toán tiền cho ngày phép còn lại?",
 								"emoji": True
 							},
 							"value": "value-3"
@@ -305,7 +301,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "5. Bao giờ được trả sổ BHXH đã chốt khi nghỉ việc?",
+								"text": "5. Tôi sẽ nhận được sổ BHXH đã chốt khi nào?",
 								"emoji": True
 							},
 							"value": "value-4"
@@ -409,7 +405,7 @@ class welcome:
 			"type": "header",
 			"text": {
 				"type": "plain_text",
-				"text": "IV. Bảo hiểm"
+				"text": "IV. Bảo hiểm/Khám chữa bệnh"
 			}
 		},
 		{
@@ -427,7 +423,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "1. Danh mục các bệnh viện được đăng ký khám chữa bệnh?",
+								"text": "1. Danh sách bệnh viện đăng ký khám chữa bệnh?",
 								"emoji": True
 							},
 							"value": "value-0"
@@ -443,7 +439,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "3. Thủ tục và quyền lợi chế độ thai sản?",
+								"text": "3. Tôi đã có thẻ BH tự nguyện/theo hộ gia đình",
 								"emoji": True
 							},
 							"value": "value-2"
@@ -451,7 +447,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "4. Thủ tục và quyền lợi chế độ dưỡng sức?",
+								"text": "4. Tôi đã mua Bảo hiểm nhân thọ/ Bảo hiểm sức khỏe?",
 								"emoji": True
 							},
 							"value": "value-3"
@@ -459,7 +455,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "5. Đã có thẻ BH tự nguyện hoặc thẻ BH theo hộ gia đình?",
+								"text": "5. Đang ký HĐLĐ và tham gia BHXH tại công ty khác?",
 								"emoji": True
 							},
 							"value": "value-4"
@@ -467,7 +463,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "6. Tôi đã mua Bảo hiểm nhân thọ/ Bảo hiểm sức khỏe?",
+								"text": "6. Sai thông tin trên sổ BHXH, thẻ BHYT thì làm như thế nào?",
 								"emoji": True
 							},
 							"value": "value-5"
@@ -475,29 +471,82 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "7. Đang ký HĐLĐ và tham gia Bảo hiểm xã hội tại công ty khác?",
+								"text": "7. Thay đổi số CMTND hoặc căn cước công dân?",
 								"emoji": True
 							},
 							"value": "value-6"
-						},
-						{
-							"text": {
-								"type": "plain_text",
-								"text": "8. Sai thông tin cá nhân trên sổ BHXH, thẻ BHYT thì có cần làm thủ tục?",
-								"emoji": True
-							},
-							"value": "value-7"
-						},
-						{
-							"text": {
-								"type": "plain_text",
-								"text": "9. Thay đổi số CMTND hoặc căn cước công dân?",
-								"emoji": True
-							},
-							"value": "value-8"
 						}
 					],
 					"action_id": "insurance_select"
+				}
+            ]
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Back",
+						"emoji": True
+					},
+					"value": "click_back",
+					"action_id": "back"
+				}
+			]
+		},
+		{
+			"type": "divider"
+		}
+    ]
+
+    BLOCK_PREGNANT = [
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": "V. Thai sản"
+			}
+		},
+		{
+			"type": "actions",
+            "block_id": "block_preg",
+			"elements":[
+				{
+					"type": "static_select",
+					"placeholder": {
+						"type": "plain_text",
+						"text": "Tìm câu hỏi tại đây",
+						"emoji": True
+					},
+					"options": [
+						{
+							"text": {
+								"type": "plain_text",
+								"text": "1. Về chế độ thai sản?",
+								"emoji": True
+							},
+							"value": "value-0"
+						},
+						{
+							"text": {
+								"type": "plain_text",
+								"text": "2. Về chế độ dưỡng sức sau thai sản?",
+								"emoji": True
+							},
+							"value": "value-1"
+						},
+						{
+							"text": {
+								"type": "plain_text",
+								"text": "3. Tôi sinh con hoặc Vợ sinh con thì được hưởng quyền lợi gì?",
+								"emoji": True
+							},
+							"value": "value-2"
+						}
+					],
+					"action_id": "pregnant_select"
 				}
             ]
 		},
@@ -526,7 +575,7 @@ class welcome:
 			"type": "header",
 			"text": {
 				"type": "plain_text",
-				"text": "V. Thuế"
+				"text": "VI. Thuế"
 			}
 		},
 		{
@@ -619,7 +668,7 @@ class welcome:
 			"type": "header",
 			"text": {
 				"type": "plain_text",
-				"text": "VI. Chấm công - Tính lương"
+				"text": "VII. Chấm công - Tính lương"
 			}
 		},
 		{
@@ -645,7 +694,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "2. Các đối tượng được tự động/miễn chấm công",
+								"text": "2. Ai sẽ được miễn chấm công?",
 								"emoji": True
 							},
 							"value": "value-1"
@@ -661,7 +710,84 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "4. Trường hợp nghỉ việc để chăm con ốm thông thường",
+								"text": "4. Hướng dẫn cách duyệt đơn trên 1 Office",
+								"emoji": True
+							},
+							"value": "value-3"
+						}
+					],
+					"action_id": "salary_select"
+				}
+            ]
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Back",
+						"emoji": True
+					},
+					"value": "click_back",
+					"action_id": "back"
+				}
+			]
+		},
+		{
+			"type": "divider"
+		}
+    ]
+
+    BLOCK_OFF = [
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": "VIII. Ngày nghỉ"
+			}
+		},
+		{
+			"type": "actions",
+            "block_id": "block_off",
+			"elements":[
+				{
+					"type": "static_select",
+					"placeholder": {
+						"type": "plain_text",
+						"text": "Tìm câu hỏi tại đây",
+						"emoji": True
+					},
+					"options": [
+						{
+							"text": {
+								"type": "plain_text",
+								"text": "1. Tôi nghỉ việc để chăm con ốm thì tạo đơn nghỉ gì?",
+								"emoji": True
+							},
+							"value": "value-0"
+						},
+						{
+							"text": {
+								"type": "plain_text",
+								"text": "2. Tôi nghỉ ốm thì tạo đơn gì?",
+								"emoji": True
+							},
+							"value": "value-1"
+						},
+						{
+							"text": {
+								"type": "plain_text",
+								"text": "3. Tôi làm gì khi không tạo được đơn do quá hạn 5 ngày?",
+								"emoji": True
+							},
+							"value": "value-2"
+						},
+						{
+							"text": {
+								"type": "plain_text",
+								"text": "4. Tôi muốn xem số ngày phép tồn đến thời điểm hiện tại?",
 								"emoji": True
 							},
 							"value": "value-3"
@@ -669,7 +795,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "5. Trường hợp nghỉ ốm thông thường",
+								"text": "5. Tôi kết hôn thì được hưởng những quyền lợi gì?",
 								"emoji": True
 							},
 							"value": "value-4"
@@ -677,7 +803,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "6. Trường hợp quá hạn 5 ngày không tạo đơn được",
+								"text": "6. Quyền lợi khi sinh con hoặc Vợ sinh con?",
 								"emoji": True
 							},
 							"value": "value-5"
@@ -685,7 +811,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "7. Nếu muốn xem số ngày phép tồn đến thời điểm hiện tại?",
+								"text": "7. Công ty có chế độ gì cho ngày sinh nhật không?",
 								"emoji": True
 							},
 							"value": "value-6"
@@ -693,7 +819,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "8. Bản thân kết hôn thì được hưởng những quyền lợi gì?",
+								"text": "8. Gia đình tôi có người mất, công ty có phúc lợi gì không?",
 								"emoji": True
 							},
 							"value": "value-7"
@@ -701,37 +827,13 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "9. Quyền lợi khi sinh con hoặc vợ sinh con?",
+								"text": "9. Tôi bị ốm đau, tai nạn, công ty có chế độ thăm hỏi gì không?",
 								"emoji": True
 							},
 							"value": "value-8"
-						},
-						{
-							"text": {
-								"type": "plain_text",
-								"text": "10. Công ty có chế độ gì cho ngày sinh nhật không?",
-								"emoji": True
-							},
-							"value": "value-9"
-						},
-						{
-							"text": {
-								"type": "plain_text",
-								"text": "11. Nếu gia đình có người mất, công ty có phúc lợi gì không?",
-								"emoji": True
-							},
-							"value": "value-10"
-						},
-						{
-							"text": {
-								"type": "plain_text",
-								"text": "12. Trường hợp nhân viên bị ốm đau, tai nạn?",
-								"emoji": True
-							},
-							"value": "value-11"
 						}
 					],
-					"action_id": "salary_select"
+					"action_id": "off_select"
 				}
             ]
 		},
@@ -794,7 +896,7 @@ class welcome:
 						{
 							"text": {
 								"type": "plain_text",
-								"text": "3. Muốn xem Nội quy lao động thì cần xem ở đâu?",
+								"text": "3. Tôi muốn xem Nội quy lao động?",
 								"emoji": True
 							},
 							"value": "value-2"

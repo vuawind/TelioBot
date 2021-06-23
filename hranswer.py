@@ -19,7 +19,7 @@ class quit_answer:
 
 class move_answer:
     ans1 = "*1. Thủ tục điều chuyển nhân sự như thế nào?*\n(Quy trình điều chuyển nhân sự đang trong quá trình xây dựng) :construction:\nCác Quản lý trực tiếp vui lòng gửi thông tin đề xuất thăng chức, điều chuyển cho Phòng Nhân sự theo thông tin như sau:\n1. Kiều Huyền Phương (huyenphuong@telio.vn)\n2. Đặng Thị Thanh (dangthanh@telio.vn)"
-    ans2 = "*2. Thủ tục thăng chức nhân sự như thế nào?*\n(Quy trình điều thăng chức đang trong quá trình xây dựng) :construction:\nCác Quản lý trực tiếp vui lòng gửi thông tin đề xuất thăng chức, điều chuyển cho Phòng Nhân sự theo thông tin như sau:\n1. Kiều Huyền Phương (huyenphuong@telio.vn)\n2. Đặng Thị Thanh (dangthanh@telio.vn)"
+    ans2 = "*2. Thủ tục thăng chức nhân sự như thế nào?*\n(Quy trình thăng chức đang trong quá trình xây dựng) :construction:\nCác Quản lý trực tiếp vui lòng gửi thông tin đề xuất thăng chức, điều chuyển cho Phòng Nhân sự theo thông tin như sau:\n1. Kiều Huyền Phương (huyenphuong@telio.vn)\n2. Đặng Thị Thanh (dangthanh@telio.vn)"
     ans3 = "*3.  Liên hệ ai khi muốn đề xuất thăng chức hoặc điều chuyển?*\nCBNV cần trao đổi trước với Quản lý trực tiếp của mình. Sau đó Quản lý trực tiếp vui lòng gửi thông tin đề xuất thăng chức, điều chuyển cho Phòng Nhân sự như sau:\n1. Kiều Huyền Phương - HRM (huyenphuong@telio.vn)\n2. Đặng Thị Thanh - C&B Lead (dangthanh@telio.vn)"
 
 class insurance_answer:

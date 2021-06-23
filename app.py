@@ -558,7 +558,7 @@ def other_text(event, say, ack, client,body,action,button):
     text = body['state']['values']['block_h']['other_input']['value']
     ts = body['message']['ts']
     ack()
-    client.chat_postMessage(channel = log_channel, text = f"you have a new question from <@{body['user']['id']}>:\n{text}")
+    client.chat_postMessage(channel = hr_channel, text = f"you have a new question from <@{body['user']['id']}>:\n{text}")
     client.chat_update(ts=ts, channel = body['container']['channel_id'], blocks=[
 		{
 			"type": "section",

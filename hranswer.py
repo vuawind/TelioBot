@@ -15,11 +15,11 @@ class quit_answer:
     ans2 = "*2. Khi nào tôi nhận được tháng lương cuối cùng?*\nTiền lương còn lại của bạn sẽ được thanh toán vào các kỳ ngày 5, 10, 25 hàng tháng nếu bạn hoàn thiện đủ thủ tục nghỉ việc (Đơn xin nghỉ việc + Biên bản bàn giao và hồ sơ cá nhân nếu chưa nộp đủ)"
     ans3 = "*3. Thủ tục hưởng Bảo hiểm thất nghiệp?*\nBạn vui lòng xem hướng dẫn về thủ tục hưởng Bảo hiểm thất nghiệp tại link dưới đây\n<https://telio.1office.vn/document-company/list?tab=all&folder_id=274|Link: Hướng dẫn thủ tục nghỉ việc>"
     ans4 = "*4. Tôi có được thanh toán tiền cho ngày phép còn lại?*\nCBNV sẽ được thanh toán phép tồn khi nghỉ việc"
-    ans5 = "*5. Tôi sẽ nhận được sổ BHXH đã chốt khi nào?*\nSổ BHXH sẽ được trả muộn nhất trong vòng 45 ngày kể từ ngày nghỉ việc. Nếu bạn nộp sổ sau ngày nghỉ việc, bạn sẽ được trả sổ trong vòng 30 ngày kể từ ngày bộ phận C&B nhận sổ BHXH của bạn."
+    ans5 = "*5. Tôi sẽ nhận được sổ BHXH đã chốt khi nào?*\nSổ BHXH sẽ được trả muộn nhất trong vòng 45 ngày kể từ ngày nghỉ việc. Nếu bạn nộp sổ sau ngày nghỉ việc, bạn sẽ được trả sổ trong vòng 45 ngày kể từ ngày bộ phận C&B nhận sổ BHXH của bạn."
 
 class move_answer:
     ans1 = "*1. Thủ tục điều chuyển nhân sự như thế nào?*\n(Quy trình điều chuyển nhân sự đang trong quá trình xây dựng) :construction:\nCác Quản lý trực tiếp vui lòng gửi thông tin đề xuất thăng chức, điều chuyển cho Phòng Nhân sự theo thông tin như sau:\n1. Kiều Huyền Phương (huyenphuong@telio.vn)\n2. Đặng Thị Thanh (dangthanh@telio.vn)"
-    ans2 = "*2. Thủ tục thăng chức nhân sự như thế nào?*\n(Quy trình điều chuyển nhân sự đang trong quá trình xây dựng) :construction:\nCác Quản lý trực tiếp vui lòng gửi thông tin đề xuất thăng chức, điều chuyển cho Phòng Nhân sự theo thông tin như sau:\n1. Kiều Huyền Phương (huyenphuong@telio.vn)\n2. Đặng Thị Thanh (dangthanh@telio.vn)"
+    ans2 = "*2. Thủ tục thăng chức nhân sự như thế nào?*\n(Quy trình điều thăng chức đang trong quá trình xây dựng) :construction:\nCác Quản lý trực tiếp vui lòng gửi thông tin đề xuất thăng chức, điều chuyển cho Phòng Nhân sự theo thông tin như sau:\n1. Kiều Huyền Phương (huyenphuong@telio.vn)\n2. Đặng Thị Thanh (dangthanh@telio.vn)"
     ans3 = "*3.  Liên hệ ai khi muốn đề xuất thăng chức hoặc điều chuyển?*\nCBNV cần trao đổi trước với Quản lý trực tiếp của mình. Sau đó Quản lý trực tiếp vui lòng gửi thông tin đề xuất thăng chức, điều chuyển cho Phòng Nhân sự như sau:\n1. Kiều Huyền Phương - HRM (huyenphuong@telio.vn)\n2. Đặng Thị Thanh - C&B Lead (dangthanh@telio.vn)"
 
 class insurance_answer:

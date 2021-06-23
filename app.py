@@ -17,7 +17,6 @@ app = App(
 
 log_channel='C0252EMRTS7'
 admin_channel='C024Z67LNDB'
-bot_channel='D024MFB2B1D'
 hr_channel='C025751TS0P'
 
 @app.shortcut("ice")
@@ -166,7 +165,7 @@ def action_button_click1(body, ack, say, client, view):
     msg = conversation_history
     ack()
     client.chat_postMessage(channel = body['message']['blocks'][0]['text']['text'], text = f"<@{body['user']['id']}> approved")
-    client.chat_update(ts=ts,channel = bot_channel, blocks=[
+    client.chat_update(ts=ts,channel = body['container']['channel_id'], blocks=[
 		{
 			"type": "section",
 			"text": {
@@ -316,7 +315,7 @@ def action_button_click2(body, ack, say, client):
     msg = conversation_history
     ack()
     client.chat_postMessage(as_user=True,channel = body['message']['blocks'][0]['text']['text'], text = f"<@{body['user']['id']}> denied your travel plan")
-    client.chat_update(ts=ts, channel = bot_channel, blocks=[
+    client.chat_update(ts=ts, channel = body['container']['channel_id'], blocks=[
 		{
 			"type": "section",
 			"text": {
@@ -341,21 +340,21 @@ def new_comer(body, ack, say, client):
 
 @app.event("team_join")
 def ask_for_introduction(event, say, client, body):
-    tomorrow = datetime.datetime.today() + datetime.timedelta(days=7)
+    day2 = datetime.datetime.today() + datetime.timedelta(days=1)
+    day3 = datetime.datetime.today() + datetime.timedelta(days=2)
     scheduled_time = datetime.time(hour=9, minute=30, second=10)
-    schedule_timestamp = datetime.datetime.combine(tomorrow, scheduled_time).strftime('%s')
+    schedule_timestamp1 = datetime.datetime.combine(day2, scheduled_time).strftime('%s')
+    schedule_timestamp2 = datetime.datetime.combine(day3, scheduled_time).strftime('%s')
     user_id = event["user"]['id']
-    text2 = f"🎉 Xin chào <@{user_id}>, Bạn có câu hỏi về chế độ, chính sách, thủ tục nhân sự? Hãy hỏi với Sophie bằng cách bấm vào mục liên quan bên dưới nhé!"
+    text2 = f"hugging_face: Xin chào, <@{user_id}> là nhân viên mới đúng không? Hãy hỏi Sophie những điều thắc mắc nhé! (bằng cách bấm vào mục liên quan bên dưới nhé)"
     say(text=text2, channel=user_id)
     client.chat_postMessage(channel=user_id, blocks=welcome.WELCOME_BLOCK)
-    client.chat_scheduleMessage(channel=user_id,text=f"Hello <@{body['user']['id']}>", blocks=welcome.WELCOME_BLOCK, post_at=schedule_timestamp)
+    client.chat_scheduleMessage(channel=user_id,text=f"Xin chào, ngày hôm nay của bạn thế nào? Bạn lưu ý hoàn thành các khóa học E-Learning - Đào tạo hội nhập trong 3 ngày từ ngày gia nhập và Hoàn thiện hồ sơ nhân sự trước 29 nhé. Có thắc mắc khác hãy hỏi Sophie! Chúc bạn luôn vui, khỏe! :grin:", blocks=welcome.WELCOME_BLOCK, post_at=schedule_timestamp1)
+    client.chat_scheduleMessage(channel=user_id,text=f"Xin chào, Bạn đã nghe về 1office? Hmm. Ngày công trên 1office được dùng để tính lương cho chính bạn. Hãy truy cập ngay, kiểm tra và tạo ngày công chính xác để nhận đủ lương tháng. Lưu ý hệ thống chỉ cho phép tạo trong vòng 5 ngày, do đó, bạn cần kiểm tra hàng ngày nhé. Nếu không rõ cách làm, hãy bấm vào mục VII. CHẤM CÔNG - TÍNH LƯƠNG để Sophie hướng dẫn bạn! :v:", blocks=welcome.WELCOME_BLOCK, post_at=schedule_timestamp2)
 
 @app.shortcut("sophie")
 def sophie(event, say, ack, client,shortcut, body):
     ack()
-    client.views_open(
-        trigger_id=shortcut["trigger_id"],
-        view=welcome.WELCOME_MODAL)
     client.chat_postMessage(channel=shortcut['user']['id'], text=f":hugging_face: Xin chào <@{body['user']['id']}>, Tôi là Sophie - HR Chatbot. Bạn có câu hỏi nào cho Sophie - Hãy bấm vào mục liên quan bên dưới nhé!")
     client.chat_postMessage(channel=shortcut['user']['id'], blocks=welcome.WELCOME_BLOCK)
 
@@ -379,6 +378,11 @@ def insurance(event, say, ack, client,body):
     ack()
     client.chat_postMessage(channel=body['user']['id'], blocks=welcome.BLOCK_INSURANCE)
 
+@app.action("pregnant_id")
+def pregnant(event, say, ack, client,body):
+    ack()
+    client.chat_postMessage(channel=body['user']['id'], blocks=welcome.BLOCK_PREGNANT)
+
 @app.action("tax_id")
 def tax(event, say, ack, client,body):
     ack()
@@ -388,6 +392,11 @@ def tax(event, say, ack, client,body):
 def salary(event, say, ack, client,body):
     ack()
     client.chat_postMessage(channel=body['user']['id'], blocks=welcome.BLOCK_SALARY)
+
+@app.action("off_id")
+def off(event, say, ack, client,body):
+    ack()
+    client.chat_postMessage(channel=body['user']['id'], blocks=welcome.BLOCK_OFF)
 
 @app.action("work_id")
 def work(event, say, ack, client,body):
@@ -419,6 +428,10 @@ def onboard_choice(event, say, ack, client,body,action):
         client.chat_postMessage(channel=body['user']['id'], text=onboard_answer.ans7)
     if selected_option == 'value-7':
         client.chat_postMessage(channel=body['user']['id'], text=onboard_answer.ans8)
+    if selected_option == 'value-8':
+        client.chat_postMessage(channel=body['user']['id'], text=onboard_answer.ans9)
+    if selected_option == 'value-9':
+        client.chat_postMessage(channel=body['user']['id'], text=onboard_answer.ans10)
 
 @app.action("quit_select")
 def quit_choice(event, say, ack, client,body,action):
@@ -464,10 +477,17 @@ def insurance_choice(event, say, ack, client,body,action):
         client.chat_postMessage(channel=body['user']['id'], text=insurance_answer.ans6)
     if selected_option == 'value-6':
         client.chat_postMessage(channel=body['user']['id'], text=insurance_answer.ans7)
-    if selected_option == 'value-7':
-        client.chat_postMessage(channel=body['user']['id'], text=insurance_answer.ans8)
-    if selected_option == 'value-8':
-        client.chat_postMessage(channel=body['user']['id'], text=insurance_answer.ans9)
+
+@app.action("pregnant_select")
+def pregnant_choice(event, say, ack, client,body,action):
+    selected_option = body['state']['values']['block_preg']['pregnant_select']['selected_option']['value']
+    ack()
+    if selected_option == 'value-0':
+        client.chat_postMessage(channel=body['user']['id'], text=pregnant_answer.ans1)
+    if selected_option == 'value-1':
+        client.chat_postMessage(channel=body['user']['id'], text=pregnant_answer.ans2)
+    if selected_option == 'value-2':
+        client.chat_postMessage(channel=body['user']['id'], text=pregnant_answer.ans3)
 
 @app.action("tax_select")
 def tax_choice(event, say, ack, client,body,action):
@@ -498,22 +518,29 @@ def salary_choice(event, say, ack, client,body,action):
         client.chat_postMessage(channel=body['user']['id'], text=salary_answer.ans3)
     if selected_option == 'value-3':
         client.chat_postMessage(channel=body['user']['id'], text=salary_answer.ans4)
+
+@app.action("off_select")
+def off_choice(event, say, ack, client,body,action):
+    selected_option = body['state']['values']['block_off']['off_select']['selected_option']['value']
+    ack()
+    if selected_option == 'value-0':
+        client.chat_postMessage(channel=body['user']['id'], text=off_answer.ans1)
+    if selected_option == 'value-1':
+        client.chat_postMessage(channel=body['user']['id'], text=off_answer.ans2)
+    if selected_option == 'value-2':
+        client.chat_postMessage(channel=body['user']['id'], text=off_answer.ans3)
+    if selected_option == 'value-3':
+        client.chat_postMessage(channel=body['user']['id'], text=off_answer.ans4)
     if selected_option == 'value-4':
-        client.chat_postMessage(channel=body['user']['id'], text=salary_answer.ans5)
+        client.chat_postMessage(channel=body['user']['id'], text=off_answer.ans5)
     if selected_option == 'value-5':
-        client.chat_postMessage(channel=body['user']['id'], text=salary_answer.ans6)
+        client.chat_postMessage(channel=body['user']['id'], text=off_answer.ans6)
     if selected_option == 'value-6':
-        client.chat_postMessage(channel=body['user']['id'], text=salary_answer.ans7)
+        client.chat_postMessage(channel=body['user']['id'], text=off_answer.ans7)
     if selected_option == 'value-7':
-        client.chat_postMessage(channel=body['user']['id'], text=salary_answer.ans8)
+        client.chat_postMessage(channel=body['user']['id'], text=off_answer.ans8)
     if selected_option == 'value-8':
-        client.chat_postMessage(channel=body['user']['id'], text=salary_answer.ans9)
-    if selected_option == 'value-9':
-        client.chat_postMessage(channel=body['user']['id'], text=salary_answer.ans10)
-    if selected_option == 'value-10':
-        client.chat_postMessage(channel=body['user']['id'], text=salary_answer.ans11)
-    if selected_option == 'value-11':
-        client.chat_postMessage(channel=body['user']['id'], text=salary_answer.ans12)
+        client.chat_postMessage(channel=body['user']['id'], text=off_answer.ans9)
 
 @app.action("work_select")
 def work_choice(event, say, ack, client,body,action):
@@ -529,8 +556,36 @@ def work_choice(event, say, ack, client,body,action):
 @app.action("submit")
 def other_text(event, say, ack, client,body,action,button):
     text = body['state']['values']['block_h']['other_input']['value']
+    ts = body['message']['ts']
     ack()
-    client.chat_postMessage(channel = hr_channel, text = f"you have a new question from <@{body['user']['id']}>:\n{text}")
+    client.chat_postMessage(channel = log_channel, text = f"you have a new question from <@{body['user']['id']}>:\n{text}")
+    client.chat_update(ts=ts, channel = body['container']['channel_id'], blocks=[
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": f"Gửi câu hỏi thành công.\nCảm ơn bạn. Phòng Nhân sự sẽ phản hồi bạn trong thời gian sớm nhất!"
+			}
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Back",
+						"emoji": True
+					},
+					"value": "click_back",
+					"action_id": "back"
+				}
+			]
+		},
+		{
+			"type": "divider"
+		}
+	])
 
 @app.action("back")
 def back(event, say, ack, client,body,action):

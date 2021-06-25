@@ -24,7 +24,7 @@ def travel_modal(shortcut, say, client, ack):
     ack()
     client.views_open(
         trigger_id=shortcut["trigger_id"],
-        view=travel_bot.TRAVEL_BLOCK)
+        view=travel_bot.TRAVEL_BLOCK1)
 
 @app.view("view_travel")
 def handle_submission(ack, body, client, view, logger, message, user):
@@ -38,7 +38,7 @@ def handle_submission(ack, body, client, view, logger, message, user):
     line7 = view["state"]["values"]["block_d"]["reason_input"]["value"]
     line8 = view["state"]["values"]["block_perdiem"]["perdiem_select"]["selected_option"]["text"]["text"]
     line9 = view["state"]["values"]["block_id"]["input_id"]["value"]
-    line10 = view["state"]["values"]["block_bank"]["bank_input"]["value"]
+    #line10 = view["state"]["values"]["block_bank"]["bank_input"]["value"]
     line11 = view["state"]["values"]["block_user_input"]["user_select"]["selected_users"][0]
     response = client.users_info(user=f"{body['user']['id']}")
     assert(response)
@@ -71,8 +71,12 @@ def handle_submission(ack, body, client, view, logger, message, user):
     # Message to send user
     msg = ""
     try:
+        if view["state"]["values"]["block_perdiem"]["perdiem_select"]["selected_option"]['value'] == "value-1":
+            msg = f":airplane_departure: *Departure:* \n{line1}\n:airplane_arriving: *Arrival:* \n{line3}\n*From:* \n{line2}\n*To:*\n{line4}\n*Vehicle: * {line5}\n*Class: * {line6}\n *ID/Passport number: *\n{line9}\n*Reasons for travel:*\n{line7}\n*Per diem request: * {line8}"
         # Save to DB
-        msg = f":airplane_departure: *Departure:* \n{line1}\n:airplane_arriving: *Arrival:* \n{line3}\n*From:* \n{line2}\n*To:*\n{line4}\n*Vehicle: * {line5}\n*Class: * {line6}\n *ID/Passport number: *\n{line9}\n*Reasons for travel:*\n{line7}\n*Per diem request: * {line8}\n*Bank information: *\n{line10}"
+        if view["state"]["values"]["block_perdiem"]["perdiem_select"]["selected_option"]['value'] == "value-0":
+            line10 = view["state"]["values"]["block_bank"]["bank_input"]["value"]
+            msg = f":airplane_departure: *Departure:* \n{line1}\n:airplane_arriving: *Arrival:* \n{line3}\n*From:* \n{line2}\n*To:*\n{line4}\n*Vehicle: * {line5}\n*Class: * {line6}\n *ID/Passport number: *\n{line9}\n*Reasons for travel:*\n{line7}\n*Per diem request: * {line8}\n*Bank information: *\n{line10}"
     except Exception as e:
         # Handle error
         msg = "There was an error with your submission"
@@ -155,6 +159,31 @@ def handle_submission(ack, body, client, view, logger, message, user):
 	])
     except e:
         logger.exception(f"Failed to post a message {e}")
+
+
+@app.action("perdiem_select")
+def perdiemyes(body, ack, say, client, view):
+    selected_option = body['view']['state']['values']['block_perdiem']['perdiem_select']['selected_option']['value']
+    ack()
+    # Call views_update with the built-in client
+    if selected_option == "value-0":
+        client.views_update(
+            # Pass the view_id
+            view_id=body["view"]["id"],
+            # String that represents view state to protect against race conditions
+            hash=body["view"]["hash"],
+            # View payload with updated blocks
+            view=travel_bot.TRAVEL_BLOCK
+        )
+    if selected_option == "value-1":
+        client.views_update(
+            # Pass the view_id
+            view_id=body["view"]["id"],
+            # String that represents view state to protect against race conditions
+            hash=body["view"]["hash"],
+            # View payload with updated blocks
+            view=travel_bot.TRAVEL_BLOCK1
+        )
 
 @app.action("button1")
 def action_button_click1(body, ack, say, client, view):

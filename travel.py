@@ -387,6 +387,370 @@ class travel_bot:
     "type": "modal"
     }
 
+    TRAVEL_BLOCK1={
+        "title": {
+            "type": "plain_text",
+            "text": "Travel Request"
+        },
+        "submit": {
+            "type": "plain_text",
+            "text": "Submit"
+        },
+        "callback_id": "view_travel",
+        "blocks": [
+            {
+                "type": "input",
+                "block_id": "block_user_input",
+                "element": {
+                    "type": "multi_users_select",
+                    "placeholder": {
+                        "type": "plain_text",
+                        "text": "Select users",
+                        "emoji": True
+                    },
+                    "action_id": "user_select"
+                },
+                "label": {
+                    "type": "plain_text",
+                    "text": "Approver/Người phê duyệt",
+                    "emoji": True
+                }
+            },
+            {
+                "type": "input",
+                "block_id": "block_a",
+                "label": {
+                    "type": "plain_text",
+                    "text": "Pick a date for departure/Chọn ngày đi:"
+                },
+                "element": {
+                    "type": "datepicker",
+                    "initial_date": datetime.today().strftime('%Y-%m-%d'),
+                    "placeholder": {
+                        "type": "plain_text",
+                        "text": "Select a date"
+                    },
+                    "action_id": "departure"
+                }
+            },
+            {
+                "type": "input",
+                "block_id": "block_b",
+                "label": {
+                    "type": "plain_text",
+                    "text": "Pick a date for return/Chọn ngày về:"
+                },
+                "element": {
+                    "type": "datepicker",
+                    "initial_date": datetime.today().strftime('%Y-%m-%d'),
+                    "placeholder": {
+                        "type": "plain_text",
+                        "text": "Select a date"
+                    },
+                    "action_id": "return"
+                }
+            },
+            {
+                "type": "section",
+                "block_id": "block_from",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*From/Từ:*"
+                },
+                "accessory": {
+                    "type": "static_select",
+                    "placeholder": {
+                        "type": "plain_text",
+                        "text": "Select an item",
+                        "emoji": True,
+                    },
+                    "options": [
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Hà Nội",
+                                "emoji": True,
+                            },
+                            "value": "value-0"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Hồ Chí Minh",
+                                "emoji": True,
+                            },
+                            "value": "value-2"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Đà Nẵng",
+                                "emoji": True,
+                            },
+                            "value": "value-1"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Hải Phòng",
+                                "emoji": True,
+                            },
+                            "value": "value-3"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Cần Thơ",
+                                "emoji": True,
+                            },
+                            "value": "value-4"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Other/Khác(include in reason/thêm địa điểm ở bảng lý do)",
+                                "emoji": True,
+                            },
+                            "value": "value-3"
+                        }
+                    ],
+                    "action_id": "from_select"
+                }
+            },
+            {
+                "type": "section",
+                "block_id": "block_return",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*To/Đến:*"
+                },
+                "accessory": {
+                    "type": "static_select",
+                    "placeholder": {
+                        "type": "plain_text",
+                        "text": "Select an item",
+                        "emoji": True,
+                    },
+                    "options": [
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Hà Nội",
+                                "emoji": True,
+                            },
+                            "value": "value-0"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Hồ Chí Minh",
+                                "emoji": True,
+                            },
+                            "value": "value-2"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Đà Nẵng",
+                                "emoji": True,
+                            },
+                            "value": "value-1"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Hải Phòng",
+                                "emoji": True,
+                            },
+                            "value": "value-3"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Cần Thơ",
+                                "emoji": True,
+                            },
+                            "value": "value-4"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Other/Khác(include in reason/thêm địa điểm ở bảng lý do)",
+                                "emoji": True,
+                            },
+                            "value": "value-3"
+                        }
+                    ],
+                    "action_id": "to_select"
+                }
+            },
+            {
+                "type": "section",
+                "block_id": "block_vehicle",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*Vehicle/Phương tiện:*"
+                },
+                "accessory": {
+                    "type": "static_select",
+                    "placeholder": {
+                        "type": "plain_text",
+                        "text": "Select an item",
+                        "emoji": True,
+                    },
+                    "options": [
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Airlane/Máy bay",
+                                "emoji": True,
+                            },
+                            "value": "value-0"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Car/Ô tô",
+                                "emoji": True,
+                            },
+                            "value": "value-1"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Bus/Xe buýt",
+                                "emoji": True,
+                            },
+                            "value": "value-1"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Train/Tàu hỏa",
+                                "emoji": True,
+                            },
+                            "value": "value-2"
+                        }
+                    ],
+                    "action_id": "vehicle_select"
+                }
+            },
+            {
+                "type": "section",
+                "block_id": "block_class",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*Class/Chức vụ*"
+                },
+                "accessory": {
+                    "type": "static_select",
+                    "placeholder": {
+                        "type": "plain_text",
+                        "text": "Select an item",
+                        "emoji": True,
+                    },
+                    "options": [
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "A - Director/Giám đốc điều hành",
+                                "emoji": True,
+                            },
+                            "value": "value-0"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "B - Manager/Quản lý bộ phận",
+                                "emoji": True,
+                            },
+                            "value": "value-1"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "C - Employee/Nhân viên",
+                                "emoji": True,
+                            },
+                            "value": "value-2"
+                        }
+                    ],
+                    "action_id": "class_select"
+                }
+            },
+            {
+                "block_id": "block_id",
+                "type": "input",
+                "element": {
+                    "type": "plain_text_input",
+                    "placeholder": {
+                        "type": "plain_text",
+                        "text": "Your ID/ID của bạn"
+                    },
+                    "action_id": "input_id"
+                },
+                "label": {
+                    "type": "plain_text",
+                    "text": "ID or Passport number/CCCD hoặc hộ chiếu",
+                    "emoji": True,
+                }
+            },
+            {
+                "block_id": "block_d",
+                "type": "input",
+                "element": {
+                    "type": "plain_text_input",
+                    "multiline": True,
+                    "placeholder": {
+                        "type": "plain_text",
+                        "text": "Please include your preferred time of travel/Xin hãy thêm giờ đi và về"
+                    },
+                    "action_id": "reason_input"
+                },
+                "label": {
+                    "type": "plain_text",
+                    "text": "Reason for travel/Lý do đi công tác(Thêm địa điểm nếu như chọn khác)"
+                }
+            },
+            {
+                "type": "section",
+                "block_id": "block_perdiem",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*Per diem/Phụ cấp*"
+                },
+                "accessory": {
+                    "type": "static_select",
+                    "placeholder": {
+                        "type": "plain_text",
+                        "text": "Select an item",
+                        "emoji": True,
+                    },
+                    "options": [
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "Yes/Có",
+                                "emoji": True,
+                            },
+                            "value": "value-0"
+                        },
+                        {
+                            "text": {
+                                "type": "plain_text",
+                                "text": "No/Không",
+                                "emoji": True,
+                            },
+                            "value": "value-1"
+                        },
+                    ],
+                    "action_id": "perdiem_select"
+                } 
+            }
+        ],
+    "type": "modal"
+    }
+
     SEND_INFO = {
         "title": {
             "type": "plain_text",

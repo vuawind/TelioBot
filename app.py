@@ -15,9 +15,9 @@ app = App(
     token=os.environ.get("SLACK_TOKEN")
 )
 
-log_channel='C0252EMRTS7'
-admin_channel='C024Z67LNDB'
-hr_channel='C025751TS0P'
+log_channel='C0251M6KFM1'
+admin_channel='C024MKPDC76'
+hr_channel='C0251M6KFM1'
 
 @app.shortcut("ice")
 def travel_modal(shortcut, say, client, ack):
@@ -451,7 +451,7 @@ def info_modal(body, say, client, ack, command):
 def getts(body, say, client, ack, command):
     mess=client.chat_getPermalink(channel=log_channel,message_ts=command['text'])
     ack()
-    client.chat_postMessage(channel=admin_channel,text=f"{mess['permalink']}")
+    client.chat_postMessage(channel=command['user_id'],text=f"{mess['permalink']}")
 
 
 @app.view("view_info")

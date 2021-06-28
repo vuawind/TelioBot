@@ -58,7 +58,7 @@ def handle_submission(ack, body, client, view, logger, message, user):
     timestamp2 = datetime.datetime.timestamp(date2)
     timestamp3 = datetime.datetime.timestamp(date3)
     if timestamp1 is not None and timestamp1 > timestamp2:
-        errors["block_a"] = "Departure date cannot be later than return date"
+        errors["block_b"] = "Departure date cannot be later than return date"
     if timestamp1 - timestamp3 < 259200:
         errors["block_a"] = "You have to make the request 3 days in advance"
     if len(errors) > 0:
@@ -306,6 +306,13 @@ def handle_extend(ack, body, client, view, logger, message, user):
 		{
 			"type": "section",
 			"text": {
+				"type": "plain_text",
+				"text": f"{line12}"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
 				"type": "mrkdwn",
 				"text": f"You have a new request from *<@{body['user']['username']}>* with email *{email}*:\n*Display name: * {display_name}\n*Title: * {title}\n*Phone: * {phone}"
 			}
@@ -333,7 +340,7 @@ def handle_extend(ack, body, client, view, logger, message, user):
 						"text": "Approve"
 					},
 					"style": "primary",
-					"action_id": "button1"
+					"action_id": "button1x"
 				},
 				{
 					"type": "button",
@@ -408,6 +415,64 @@ def action_button_click1(body, ack, say, client, view, action):
 			]
 		}
 	])
+
+@app.action("button1x")
+def action_button_click1x(body, ack, say, client, view, action):
+    # Acknowledge the action
+    ts=body['message']['ts']
+    result = client.conversations_replies(channel = log_channel, inclusive=True,latest=ts,ts=body['message']['blocks'][1]['text']['text'],limit=1)
+    conversation_history = f"{result['messages'][1]['blocks'][0]['text']['text']}\n{result['messages'][1]['blocks'][1]['text']['text']}"
+    msg = conversation_history
+    ack()
+    client.chat_postMessage(channel = body['message']['blocks'][0]['text']['text'], text = f"<@{body['user']['id']}> đã chấp thuận đơn xin công tác của bạn\nĐây là số ts của bạn, hãy lưu lại trong trường hợp bạn muốn kéo dài thời gian công tác:\n *{result['messages'][0]['ts']}*")
+    client.chat_update(ts=ts,channel = body['container']['channel_id'], blocks=[
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": msg
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": f":white_check_mark: You have approved this request"
+			}
+		}
+	])
+    client.chat_postMessage(channel = admin_channel, blocks=[
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": f"Line manager *<@{body['user']['username']}>* approved this travel plan"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": msg
+			}
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"emoji": True,
+						"text": "Done"
+					},
+					"style": "primary",
+					"action_id": "button_done"
+				}
+			]
+		}
+	])
+
 
 @app.action("button_done")
 def info_click(body, say, client, ack, action):

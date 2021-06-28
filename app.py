@@ -24,7 +24,7 @@ def travel_modal(shortcut, say, client, ack):
     ack()
     client.views_open(
         trigger_id=shortcut["trigger_id"],
-        view=travel_bot.TRAVEL_BLOCK1)
+        view=travel_bot.TRAVEL_BLOCK)
 
 @app.view("view_travel")
 def handle_submission(ack, body, client, view, logger, message, user):
@@ -83,6 +83,7 @@ def handle_submission(ack, body, client, view, logger, message, user):
 
     # Message the user
     try:
+        client.chat_postMessage(channel=body['user']['id'], text=f"Bạn đã nộp đơn thành công! :tada:\nĐơn xin đi công tác của bạn đang đợi được duyệt bởi {line11}, xin cảm ơn")
         client.chat_postMessage(channel=log_channel, blocks=[
 		{
 			"type": "section",
@@ -185,15 +186,181 @@ def perdiemyes(body, ack, say, client, view):
             view=travel_bot.TRAVEL_BLOCK1
         )
 
+@app.action("extend")
+def extend_travel(body, ack, say, client, view):
+    client.views_update(
+        # Pass the view_id
+        view_id=body["view"]["id"],
+        # String that represents view state to protect against race conditions
+        hash=body["view"]["hash"],
+        # View payload with updated blocks
+        view=travel_bot.TRAVEL_BLOCK_EXTEND)
+
+@app.action("extend_perdiem_select")
+def perdiem_extend(body, ack, say, client, view):
+    selected_option = body['view']['state']['values']['block_perdiem_extend']['extend_perdiem_select']['selected_option']['value']
+    ack()
+    # Call views_update with the built-in client
+    if selected_option == "value-0":
+        client.views_update(
+            # Pass the view_id
+            view_id=body["view"]["id"],
+            # String that represents view state to protect against race conditions
+            hash=body["view"]["hash"],
+            # View payload with updated blocks
+            view=travel_bot.TRAVEL_BLOCK_EXTEND
+        )
+    if selected_option == "value-1":
+        client.views_update(
+            # Pass the view_id
+            view_id=body["view"]["id"],
+            # String that represents view state to protect against race conditions
+            hash=body["view"]["hash"],
+            # View payload with updated blocks
+            view=travel_bot.TRAVEL_BLOCK_EXTEND1
+        )
+
+@app.view("view_extend")
+def handle_extend(ack, body, client, view, logger, message, user):
+    # Assume there's an input block with `block_c` as the block_id and `dreamy_input`
+    line1 = view["state"]["values"]["block_a"]["departure"]["selected_date"]
+    line2 = view["state"]["values"]["block_from"]["from_select"]["selected_option"]["text"]["text"]
+    line3 = view["state"]["values"]["block_b"]["return"]["selected_date"]
+    line4 = view["state"]["values"]["block_return"]["to_select"]["selected_option"]["text"]["text"]
+    line5 = view["state"]["values"]["block_vehicle"]["vehicle_select"]["selected_option"]["text"]["text"]
+    line6 = view["state"]["values"]["block_class"]["class_select"]["selected_option"]["text"]["text"]
+    line7 = view["state"]["values"]["block_d"]["reason_input"]["value"]
+    line8 = view["state"]["values"]["block_perdiem_extend"]["extend_perdiem_select"]["selected_option"]["text"]["text"]
+    line9 = view["state"]["values"]["block_id"]["input_id"]["value"]
+    #line10 = view["state"]["values"]["block_bank"]["bank_input"]["value"]
+    line11 = view["state"]["values"]["block_user_input"]["user_select"]["selected_users"][0]
+    line12 = view["state"]["values"]["block_invoice"]["input_invoice"]["value"]
+    response = client.users_info(user=f"{body['user']['id']}")
+    assert(response)
+    #profile = response['user']['profile']
+    display_name = response['user']['profile']['display_name']
+    phone = response['user']['profile']['phone']
+    title = response['user']['profile']['title']
+    avatar = response['user']['profile']['image_72']
+    email = response['user']['profile']['email']
+    # Validate the inputs
+    # Acknowledge the view_submission event and close the modal
+    errors = {}
+    date1 = datetime.datetime.strptime(line1, "%Y-%m-%d")
+    date2 = datetime.datetime.strptime(line3, "%Y-%m-%d")
+    timestamp1 = datetime.datetime.timestamp(date1)
+    timestamp2 = datetime.datetime.timestamp(date2)
+    if timestamp1 is not None and timestamp1 > timestamp2:
+        errors["block_a"] = "Departure date cannot be later than return date"
+    if len(errors) > 0:
+        ack(response_action="errors", errors=errors)
+        return
+    ack()
+    # Do whatever you want with the input data - here we're saving it to a DB
+    # then sending the user a verification of their submission
+
+    # Message to send user
+    msg = ""
+    try:
+        if view["state"]["values"]["block_perdiem_extend"]["extend_perdiem_select"]["selected_option"]['value'] == "value-1":
+            msg = f":airplane_departure: *Departure:* \n{line1}\n:airplane_arriving: *Arrival:* \n{line3}\n*From:* \n{line2}\n*To:*\n{line4}\n*Vehicle: * {line5}\n*Class: * {line6}\n *ID/Passport number: *\n{line9}\n*Reasons for travel:*\n{line7}\n*Per diem request: * {line8}"
+        # Save to DB
+        if view["state"]["values"]["block_perdiem_extend"]["extend_perdiem_select"]["selected_option"]['value'] == "value-0":
+            line10 = view["state"]["values"]["block_bank"]["bank_input"]["value"]
+            msg = f":airplane_departure: *Departure:* \n{line1}\n:airplane_arriving: *Arrival:* \n{line3}\n*From:* \n{line2}\n*To:*\n{line4}\n*Vehicle: * {line5}\n*Class: * {line6}\n *ID/Passport number: *\n{line9}\n*Reasons for travel:*\n{line7}\n*Per diem request: * {line8}\n*Bank information: *\n{line10}"
+    except Exception as e:
+        # Handle error
+        msg = "There was an error with your submission"
+
+    # Message the user
+    try:
+        client.chat_postMessage(thread_ts=line12,channel=log_channel, blocks=[
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": f"You have a new request from *<@{body['user']['username']}>* with email *{email}*:\n*Display name: * {display_name}\n*Title: * {title}\n*Phone: * {phone}"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": msg
+			},
+			"accessory": {
+				"type": "image",
+				"image_url": f"{avatar}",
+				"alt_text": "computer thumbnail"
+			}
+		}
+	])
+        client.chat_postMessage(channel=line11, blocks=[
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": f"{body['user']['id']}"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": f"You have a new request from *<@{body['user']['username']}>* with email *{email}*:\n*Display name: * {display_name}\n*Title: * {title}\n*Phone: * {phone}"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": msg
+			},
+			"accessory": {
+				"type": "image",
+				"image_url": f"{avatar}",
+				"alt_text": "computer thumbnail"
+			}
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"emoji": True,
+						"text": "Approve"
+					},
+					"style": "primary",
+					"action_id": "button1"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"emoji": True,
+						"text": "Deny"
+					},
+					"style": "danger",
+					"action_id": "button2"
+				}
+			]
+		}
+	])
+    except e:
+        logger.exception(f"Failed to post a message {e}")
+
+
 @app.action("button1")
-def action_button_click1(body, ack, say, client, view):
+def action_button_click1(body, ack, say, client, view, action):
     # Acknowledge the action
     ts=body['message']['ts']
     result = client.conversations_history(channel = log_channel, inclusive=True,latest=ts,limit=1)
     conversation_history = f"{result['messages'][0]['blocks'][0]['text']['text']}\n{result['messages'][0]['blocks'][1]['text']['text']}"
     msg = conversation_history
     ack()
-    client.chat_postMessage(channel = body['message']['blocks'][0]['text']['text'], text = f"<@{body['user']['id']}> approved")
+    client.chat_postMessage(channel = body['message']['blocks'][0]['text']['text'], text = f"<@{body['user']['id']}> đã chấp thuận đơn xin công tác của bạn\nĐây là số ts của bạn, hãy lưu lại trong trường hợp bạn muốn kéo dài thời gian công tác:\n *{result['messages'][0]['ts']}*")
     client.chat_update(ts=ts,channel = body['container']['channel_id'], blocks=[
 		{
 			"type": "section",
@@ -279,6 +446,13 @@ def info_modal(body, say, client, ack, command):
     client.views_open(
         trigger_id=command["trigger_id"],
         view=travel_bot.SEND_INFO)
+
+@app.command("/getts")
+def getts(body, say, client, ack, command):
+    mess=client.chat_getPermalink(channel=log_channel,message_ts=command['text'])
+    ack()
+    client.chat_postMessage(channel=admin_channel,text=f"{mess['permalink']}")
+
 
 @app.view("view_info")
 def handle_info_travel(ack, body, client, view, logger, message, user,say):

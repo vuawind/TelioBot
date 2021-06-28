@@ -83,7 +83,7 @@ def handle_submission(ack, body, client, view, logger, message, user):
 
     # Message the user
     try:
-        client.chat_postMessage(channel=body['user']['id'], text=f"Bạn đã nộp đơn thành công! :tada:\nĐơn xin đi công tác của bạn đang đợi được duyệt bởi {line11}, xin cảm ơn")
+        client.chat_postMessage(channel=body['user']['id'], text=f"Bạn đã nộp đơn thành công! :tada:\nĐơn xin đi công tác của bạn đang đợi được duyệt bởi <@{line11}>, xin cảm ơn")
         client.chat_postMessage(channel=log_channel, blocks=[
 		{
 			"type": "section",
@@ -517,7 +517,7 @@ def action_button_click2(body, ack, say, client):
     conversation_history = f"{result['messages'][0]['blocks'][0]['text']['text']}\n{result['messages'][0]['blocks'][1]['text']['text']}"
     msg = conversation_history
     ack()
-    client.chat_postMessage(as_user=True,channel = body['message']['blocks'][0]['text']['text'], text = f"<@{body['user']['id']}> denied your travel plan")
+    client.chat_postMessage(as_user=True,channel = body['message']['blocks'][0]['text']['text'], text = f"<@{body['user']['id']}> đã từ chối đơn xin công tác của bạn")
     client.chat_update(ts=ts, channel = body['container']['channel_id'], blocks=[
 		{
 			"type": "section",

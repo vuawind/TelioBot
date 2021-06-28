@@ -535,10 +535,10 @@ def action_button_click2(body, ack, say, client):
 		}
 	])
 
-@app.message("print")
+@app.message("svxhyy")
 def new_comer(body, ack, say, client):
     ack()
-    client.chat_postMessage(channel=log_channel, blocks=welcome.WELCOME_BLOCK)
+    client.chat_postMessage(channel=log_channel, text="svxhyy")
     #response = client.team_accessLogs(team_id=)
 
 @app.event("team_join")

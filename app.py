@@ -15,9 +15,9 @@ app = App(
     token=os.environ.get("SLACK_TOKEN")
 )
 
-log_channel='C0251M6KFM1'
-admin_channel='C024MKPDC76'
-hr_channel='C0251M6KFM1'
+log_channel='C0252EMRTS7'
+admin_channel='C024Z67LNDB'
+hr_channel='C025751TS0P'
 
 @app.shortcut("ice")
 def travel_modal(shortcut, say, client, ack):

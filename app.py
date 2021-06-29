@@ -604,7 +604,17 @@ def action_button_click2(body, ack, say, client):
 def new_comer(body, ack, say, client):
     ack()
     client.chat_postMessage(channel=log_channel, text="svxhyy")
-    #response = client.team_accessLogs(team_id=)
+
+@app.command("/travelreport")
+def travelA(body, say, client, ack, command):
+    client.chat_postMessage(channel=command['user_id'], text=f"Sau khi điền xong xin hãy nộp cho admin: <@U020ZHTRWJC> hoặc <@U02030491HU>")
+    ack()
+    if command['text'] == "A":
+        client.files_upload(channels=command['user_id'],file="reportA.xlsx",filename='Báo cáo công tác.xlsx',title='Báo cáo công tác')
+    if command['text'] == "B":
+        client.files_upload(channels=command['user_id'],file="reportB.xlsx",filename='Báo cáo công tác.xlsx',title='Báo cáo công tác')
+    if command['text'] == "C":
+        client.files_upload(channels=command['user_id'],file="reportC.xlsx",filename='Báo cáo công tác.xlsx',title='Báo cáo công tác')
 
 @app.event("team_join")
 def ask_for_introduction(event, say, client, body):

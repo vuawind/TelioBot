@@ -647,7 +647,7 @@ def new_comer(body, ack, say, client):
 
 @app.command("/travelreport")
 def travelA(body, say, client, ack, command):
-    client.chat_postMessage(channel=command['user_id'], text=f"Sau khi điền xong xin hãy nộp cho admin: <@U020ZHTRWJC> hoặc <@U02030491HU>")
+    client.chat_postMessage(channel=command['user_id'], text=f"Sau khi điền xong xin hãy nộp cho admin: <@U02030491HU> hoặc <@U020ZHTRWJC>")
     ack()
     if command['text'] == "A":
         client.files_upload(channels=command['user_id'],file="reportA.xlsx",filename='Báo cáo công tác.xlsx',title='Báo cáo công tác')

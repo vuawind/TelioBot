@@ -376,7 +376,8 @@ def action_button_click1(body, ack, say, client, view, action):
     # Acknowledge the action
     ts=body['message']['ts']
     result = client.conversations_history(channel = log_channel, inclusive=True,latest=ts,limit=1)
-    conversation_history = f"{result['messages'][0]['blocks'][0]['text']['text']}\n{result['messages'][0]['blocks'][1]['text']['text']}"
+    result1 = client.conversations_history(channel = body['container']['channel_id'], inclusive=True,latest=ts,limit=1)
+    conversation_history = f"{result1['messages'][0]['blocks'][1]['text']['text']}\n{result1['messages'][0]['blocks'][2]['text']['text']}"
     msg = conversation_history
     ack()
     client.chat_postMessage(channel = body['message']['blocks'][0]['text']['text'], text = f"<@{body['user']['id']}> đã chấp thuận đơn xin công tác của bạn\nĐây là số ts của bạn, hãy lưu lại trong trường hợp bạn muốn kéo dài thời gian công tác:\n *{result['messages'][0]['ts']}*")
@@ -590,8 +591,8 @@ def handle_info_travel(ack, body, client, view, logger, message, user,say):
 def action_button_click2(body, ack, say, client):
     # Acknowledge the action
     ts=body['message']['ts']
-    result = client.conversations_history(channel = log_channel, inclusive=True,latest=ts,limit=1)
-    conversation_history = f"{result['messages'][0]['blocks'][0]['text']['text']}\n{result['messages'][0]['blocks'][1]['text']['text']}"
+    result = client.conversations_history(channel = body['container']['channel_id'], inclusive=True,latest=ts,limit=1)
+    conversation_history = f"{result['messages'][0]['blocks'][1]['text']['text']}\n{result['messages'][0]['blocks'][2]['text']['text']}"
     msg = conversation_history
     ack()
     client.chat_postMessage(as_user=True,channel = body['message']['blocks'][0]['text']['text'], text = f"<@{body['user']['id']}> đã từ chối đơn xin công tác của bạn")

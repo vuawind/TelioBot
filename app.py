@@ -362,7 +362,7 @@ def handle_extend(ack, body, client, view, logger, message, user):
 						"text": "Deny"
 					},
 					"style": "danger",
-					"action_id": "button2"
+					"action_id": "button2x"
 				}
 			]
 		}
@@ -612,6 +612,33 @@ def action_button_click2(body, ack, say, client):
 			}
 		}
 	])
+
+@app.action("button2x")
+def action_button_click2x(body, ack, say, client):
+    # Acknowledge the action
+    ts=body['message']['ts']
+    result = client.conversations_replies(channel = log_channel, inclusive=True,latest=ts,ts=body['message']['blocks'][1]['text']['text'],limit=1)
+    conversation_history = f"{result['messages'][0]['blocks'][0]['text']['text']}\n{result['messages'][0]['blocks'][1]['text']['text']}"
+    msg = conversation_history
+    ack()
+    client.chat_postMessage(as_user=True,channel = body['message']['blocks'][0]['text']['text'], text = f"<@{body['user']['id']}> đã từ chối đơn xin công tác của bạn")
+    client.chat_update(ts=ts, channel = body['container']['channel_id'], blocks=[
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": msg
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": f":negative_squared_cross_mark: You have denied this request"
+			}
+		}
+	])
+
 
 @app.message("svxhyy")
 def new_comer(body, ack, say, client):

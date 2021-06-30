@@ -618,7 +618,7 @@ def action_button_click2x(body, ack, say, client):
     # Acknowledge the action
     ts=body['message']['ts']
     result = client.conversations_replies(channel = log_channel, inclusive=True,latest=ts,ts=body['message']['blocks'][1]['text']['text'],limit=1)
-    conversation_history = f"{result['messages'][0]['blocks'][0]['text']['text']}\n{result['messages'][0]['blocks'][1]['text']['text']}"
+    conversation_history = f"{result['messages'][1]['blocks'][0]['text']['text']}\n{result['messages'][1]['blocks'][1]['text']['text']}"
     msg = conversation_history
     ack()
     client.chat_postMessage(as_user=True,channel = body['message']['blocks'][0]['text']['text'], text = f"<@{body['user']['id']}> đã từ chối đơn xin công tác của bạn")

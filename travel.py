@@ -33,6 +33,26 @@ class travel_bot:
                 ]
             },
             {
+                "type": "actions",
+                "block_id": "block_urgent",
+                "elements": [
+                    {
+                        "type": "checkboxes",
+                        "options": [
+                            {
+                                "text": {
+                                    "type": "plain_text",
+                                    "text": "Urgent/Cần công tác gấp",
+                                    "emoji": True
+                                },
+                                "value": "value-0"
+                            }
+                        ],
+                        "action_id": "urgent"
+                    }
+                ]
+            },
+            {
                 "type": "input",
                 "block_id": "block_user_input",
                 "element": {
@@ -427,6 +447,26 @@ class travel_bot:
                         },
                         "value": "click_me_123",
                         "action_id": "extend"
+                    }
+                ]
+            },
+            {
+                "type": "actions",
+                "block_id": "block_urgent",
+                "elements": [
+                    {
+                        "type": "checkboxes",
+                        "options": [
+                            {
+                                "text": {
+                                    "type": "plain_text",
+                                    "text": "Urgent/Cần công tác gấp",
+                                    "emoji": True
+                                },
+                                "value": "value-0"
+                            }
+                        ],
+                        "action_id": "urgent"
                     }
                 ]
             },

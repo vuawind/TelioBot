@@ -40,6 +40,7 @@ def handle_submission(ack, body, client, view, logger, message, user):
     line9 = view["state"]["values"]["block_id"]["input_id"]["value"]
     #line10 = view["state"]["values"]["block_bank"]["bank_input"]["value"]
     line11 = view["state"]["values"]["block_user_input"]["user_select"]["selected_users"][0]
+    line12 = view["state"]["values"]["block_urgent"]['urgent']['selected_options']
     response = client.users_info(user=f"{body['user']['id']}")
     assert(response)
     #profile = response['user']['profile']
@@ -48,6 +49,7 @@ def handle_submission(ack, body, client, view, logger, message, user):
     title = response['user']['profile']['title']
     avatar = response['user']['profile']['image_72']
     email = response['user']['profile']['email']
+    day=259200
     # Validate the inputs
     # Acknowledge the view_submission event and close the modal
     errors = {}
@@ -57,9 +59,13 @@ def handle_submission(ack, body, client, view, logger, message, user):
     timestamp1 = datetime.datetime.timestamp(date1)
     timestamp2 = datetime.datetime.timestamp(date2)
     timestamp3 = datetime.datetime.timestamp(date3)
+    if len(line12) == 0:
+        day = 259200
+    elif len(line12) == 1:
+        day = 0
     if timestamp1 is not None and timestamp1 > timestamp2:
         errors["block_b"] = "Departure date cannot be later than return date"
-    if timestamp1 - timestamp3 < 259200:
+    if timestamp1 - timestamp3 < day:
         errors["block_a"] = "You have to make the request 3 days in advance"
     if len(errors) > 0:
         ack(response_action="errors", errors=errors)
@@ -72,11 +78,17 @@ def handle_submission(ack, body, client, view, logger, message, user):
     msg = ""
     try:
         if view["state"]["values"]["block_perdiem"]["perdiem_select"]["selected_option"]['value'] == "value-1":
-            msg = f":airplane_departure: *Departure:* \n{line1}\n:airplane_arriving: *Arrival:* \n{line3}\n*From:* \n{line2}\n*To:*\n{line4}\n*Vehicle: * {line5}\n*Class: * {line6}\n *ID/Passport number: *\n{line9}\n*Reasons for travel:*\n{line7}\n*Per diem request: * {line8}"
+            if len(line12) == 1:
+                msg = f":airplane_departure: *Departure:* \n{line1}\n:airplane_arriving: *Arrival:* \n{line3}\n*From:* \n{line2}\n*To:*\n{line4}\n*Vehicle: * {line5}\n*Class: * {line6}\n *ID/Passport number: *\n{line9}\n*Reasons for travel:*\n{line7}\n*Per diem request: * {line8}\n*:warning: Very URGENT Travel Request*"
+            else:
+                msg = f":airplane_departure: *Departure:* \n{line1}\n:airplane_arriving: *Arrival:* \n{line3}\n*From:* \n{line2}\n*To:*\n{line4}\n*Vehicle: * {line5}\n*Class: * {line6}\n *ID/Passport number: *\n{line9}\n*Reasons for travel:*\n{line7}\n*Per diem request: * {line8}"
         # Save to DB
         if view["state"]["values"]["block_perdiem"]["perdiem_select"]["selected_option"]['value'] == "value-0":
             line10 = view["state"]["values"]["block_bank"]["bank_input"]["value"]
-            msg = f":airplane_departure: *Departure:* \n{line1}\n:airplane_arriving: *Arrival:* \n{line3}\n*From:* \n{line2}\n*To:*\n{line4}\n*Vehicle: * {line5}\n*Class: * {line6}\n *ID/Passport number: *\n{line9}\n*Reasons for travel:*\n{line7}\n*Per diem request: * {line8}\n*Bank information: *\n{line10}"
+            if len(line12) == 1:
+                msg = f":airplane_departure: *Departure:* \n{line1}\n:airplane_arriving: *Arrival:* \n{line3}\n*From:* \n{line2}\n*To:*\n{line4}\n*Vehicle: * {line5}\n*Class: * {line6}\n *ID/Passport number: *\n{line9}\n*Reasons for travel:*\n{line7}\n*Per diem request: * {line8}\n*Bank information: *\n{line10}\n*:warning: Very URGENT Travel Request*"
+            else:
+                msg = f":airplane_departure: *Departure:* \n{line1}\n:airplane_arriving: *Arrival:* \n{line3}\n*From:* \n{line2}\n*To:*\n{line4}\n*Vehicle: * {line5}\n*Class: * {line6}\n *ID/Passport number: *\n{line9}\n*Reasons for travel:*\n{line7}\n*Per diem request: * {line8}\n*Bank information: *\n{line10}"
     except Exception as e:
         # Handle error
         msg = "There was an error with your submission"

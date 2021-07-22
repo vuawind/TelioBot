@@ -113,6 +113,16 @@ class welcome:
                         },
                         "value": "click10",
                         "action_id": "other_id"
+                    },
+                    {
+                        "type": "button",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "XI. LIÊN QUAN ĐẾN COVID-19",
+                            "emoji": True
+                        },
+                        "value": "click11",
+                        "action_id": "covid_id"
                     }
                 ]
             },
@@ -968,6 +978,75 @@ class welcome:
 					},
 					"value": "click_submit",
 					"action_id": "submit"
+				}
+			]
+		},
+		{
+			"type": "divider"
+		}
+    ]
+
+    BLOCK_COVID = [
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": "XI. LIÊN QUAN ĐẾN COVID-19"
+			}
+		},
+		{
+			"type": "actions",
+            "block_id": "block_covid",
+			"elements":[
+				{
+					"type": "static_select",
+					"placeholder": {
+						"type": "plain_text",
+						"text": "Tìm câu hỏi tại đây",
+						"emoji": True
+					},
+					"options": [
+						{
+							"text": {
+								"type": "plain_text",
+								"text": "1. Tôi là F0",
+								"emoji": True
+							},
+							"value": "value-0"
+						},
+						{
+							"text": {
+								"type": "plain_text",
+								"text": "2. Tôi là F1",
+								"emoji": True
+							},
+							"value": "value-1"
+						},
+						{
+							"text": {
+								"type": "plain_text",
+								"text": "3. Khu vực sinh sống/làm việc bị phong tỏa?",
+								"emoji": True
+							},
+							"value": "value-2"
+						}
+					],
+					"action_id": "covid_select"
+				}
+            ]
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Back",
+						"emoji": True
+					},
+					"value": "click_back",
+					"action_id": "back"
 				}
 			]
 		},

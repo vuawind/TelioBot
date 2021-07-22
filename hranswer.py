@@ -68,4 +68,7 @@ class work_answer:
     ans2 = "*2. Quy trình xử lý kỷ luật như thế nào?*\nBạn vui lòng xem Quy trình và các Biểu mẫu xử lý kỷ luật tại Link sau.\n<https://telio.1office.vn/document-company/list?tab=all&folder_id=275|Hướng dẫn xử lý kỷ luật>"
     ans3 = "*3. Tôi muốn xem Nội quy lao động?*\nBạn vui lòng xem nội quy lao động tại link sau:\n<https://telio.1office.vn/document-company/list?tab=all&folder_id=312|Nội quy lao động>"
 
-
+class covid_answer:
+    ans1 = "Sophie mong bạn mau khỏe lại :muscle:\nBạn hãy click vào đường link dưới đây để được hướng dẫn các thủ tục\n<https://telio.1office.vn/document-company/list?folder_id=335|Quy định về chi trả lương và hỗ trợ cho CBNV bị ảnh hưởng bởi COVID19>"
+    ans2 = "Sophie mong bạn âm tính với Covid 19 :four_leaf_clover:\nBạn hãy click vào đường link dưới đây để được hướng dẫn các thủ tục\n<https://telio.1office.vn/document-company/list?folder_id=335|Quy định về chi trả lương và hỗ trợ cho CBNV bị ảnh hưởng bởi COVID19>"
+    ans3 = "Sophie mong bạn và gia đình BÌNH AN :four_leaf_clover:\nBạn hãy click vào đường link dưới đây để được hướng dẫn các thủ tục\n<https://telio.1office.vn/document-company/list?folder_id=335|Quy định về chi trả lương và hỗ trợ cho CBNV bị ảnh hưởng bởi COVID19>"

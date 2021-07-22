@@ -664,7 +664,7 @@ def ask_for_introduction(event, say, client, body):
     schedule_timestamp1 = datetime.datetime.combine(day2, scheduled_time).strftime('%s')
     schedule_timestamp2 = datetime.datetime.combine(day3, scheduled_time).strftime('%s')
     user_id = event["user"]['id']
-    text2 = f":hugging_face: Xin chào, <@{user_id}> là nhân viên mới đúng không? Hãy hỏi Sophie những điều thắc mắc nhé! (bằng cách bấm vào mục liên quan bên dưới nhé)"
+    text2 = f"hugging_face: Xin chào, <@{user_id}> là nhân viên mới đúng không? Hãy hỏi Sophie những điều thắc mắc nhé! (bằng cách bấm vào mục liên quan bên dưới nhé)"
     say(text=text2, channel=user_id)
     client.chat_postMessage(channel=user_id, blocks=welcome.WELCOME_BLOCK)
     client.chat_scheduleMessage(channel=user_id,text=f"Xin chào, ngày hôm nay của bạn thế nào? Bạn lưu ý hoàn thành các khóa học E-Learning - Đào tạo hội nhập trong 3 ngày từ ngày gia nhập và Hoàn thiện hồ sơ nhân sự trước 29 nhé. Có thắc mắc khác hãy hỏi Sophie! Chúc bạn luôn vui, khỏe! :grin:", blocks=welcome.WELCOME_BLOCK, post_at=schedule_timestamp1)
@@ -725,6 +725,11 @@ def work(event, say, ack, client,body):
 def other(event, say, ack, client,body):
     ack()
     client.chat_postMessage(channel=body['user']['id'], blocks=welcome.BLOCK_OTHER)
+
+@app.action("covid_id")
+def other(event, say, ack, client,body):
+    ack()
+    client.chat_postMessage(channel=body['user']['id'], blocks=welcome.BLOCK_COVID)
 
 @app.action("onboard_select")
 def onboard_choice(event, say, ack, client,body,action):
@@ -870,6 +875,18 @@ def work_choice(event, say, ack, client,body,action):
         client.chat_postMessage(channel=body['user']['id'], text=work_answer.ans2)
     if selected_option == 'value-2':
         client.chat_postMessage(channel=body['user']['id'], text=work_answer.ans3)
+
+@app.action("covid_select")
+def work_choice(event, say, ack, client,body,action):
+    selected_option = body['state']['values']['block_covid']['covid_select']['selected_option']['value']
+    ack()
+    if selected_option == 'value-0':
+        client.chat_postMessage(channel=body['user']['id'], text=covid_answer.ans1)
+    if selected_option == 'value-1':
+        client.chat_postMessage(channel=body['user']['id'], text=covid_answer.ans2)
+    if selected_option == 'value-2':
+        client.chat_postMessage(channel=body['user']['id'], text=covid_answer.ans3)
+
 
 @app.action("submit")
 def other_text(event, say, ack, client,body,action,button):

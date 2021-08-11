@@ -5,8 +5,6 @@ import datetime
 from slack_bolt import App, Ack
 from slack import WebClient
 from travel import travel_bot
-from hrwelcome import welcome
-from hranswer import *
 
 app = App(
     signing_secret = os.environ.get("SLACK_EVENTS_TOKEN"),
